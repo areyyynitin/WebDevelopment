@@ -6,8 +6,9 @@ function timeout(){
 timeout();
 setTimeout(timeout , 2000);
 
-let c = 0
-for(let i =0 ; i<10;i++){
+let c = 0; 
+
+for(let i =0 ; i<10;i++){ 
     c=c+1; 
 }
 console.log("Good evening"); 
