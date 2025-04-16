@@ -12,13 +12,15 @@
 
 // promise.then(callBack);
 
+const a = require("fs").promises;
+function setPromise(fileName){
+    return a.readFile(fileName , "utf-8");
+    }
 
-function setPromise(ms){
-    return new Promise( resolve => setTimeout(resolve,ms) )
-}
 
-function callBack(){
+function callBack(content){
     console.log('I am completing my promise');
+    console.log(content)
 }
  
-setPromise(2000).then(callBack);
+setPromise('a.txt').then(callBack);
