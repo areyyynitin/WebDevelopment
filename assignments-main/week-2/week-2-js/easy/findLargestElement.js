@@ -6,6 +6,16 @@
 */
 
 function findLargestElement(numbers) {
+    // let sortednum = numbers.spilt("").sort();
+    let largestnum = numbers[0];
+
+    for(let i=1 ; i<numbers.length ; i++){
+        if(numbers[i] > largestnum ){
+            largestnum = numbers[i];
+        }
+    }
+
+    return largestnum;
     
 }
 
