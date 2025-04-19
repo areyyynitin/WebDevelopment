@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container{
+            width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            
+        }
+
+        .left{
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .right{
+            background: blue;
+        }
+
+        .horizontalCenter{
+            margin:0px auto;
+            
+        }
+
+        .grid1{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .text{
+           margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="left">
+            <div class="horizontalCenter"><h1>Left</h1></div>
+            <div class="text"><h3>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga nulla quae velit.</h3></div>
+        </div>
+        <div class="right">
+            <div class="grid1">
+                <h2>col 1</h2>
+                <h2>col 2</h2>
+                <h2>col 3</h2>
+                <h2>col 4</h2>
+                <h2>col 5</h2>
+                <h2>col 6</h2>
+                <h2>col 7</h2>
+                <h2>col 8</h2>
+                <h2>col 9</h2>
+                <h2>col 10</h2>
+                <h2>col 11</h2>
+                <h2>col 12</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
