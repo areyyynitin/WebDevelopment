@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width">
+	  <title>dom</title>
+	  <link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	
+	<body>
+	  <h1>Todo list</h1>
+	  <h4 >1. Take class</h4>
+	  <!-- <h4 class="task2" >1 Go out to eat</h4>  -->
+	  <h4 >1. Take drink</h4>
+	  <h4 >1. Take water</h4>
+      <button onclick="deleting()">Delete</button>
+	  <div>
+	    <input type="text">
+	    <button onclick="addToDo()">Add Todo</button>
+        <h4 class="addTask"></h4>
+	  </div>
+	  <script src="script.js"></script>
+	</body>
+	
+    <script>
+
+        function deleting(){
+            const element = document.querySelector('h4');
+            const parentElem = element.parentNode;
+            parentElem.removeChild(element);
+        }
+        
+        setInterval(callBack , 1000);
+        let ctr = 1;
+        function callBack(){
+            document.querySelector(".task2").innerHTML = `${ctr} Go out to eat`
+            ctr++;
+            
+        }
+    
+
+
+
+      function addToDo(){
+            const inputel = document.querySelector("input")
+            const addTask = document.querySelector(".addTask")
+            const value = inputel.value
+            addTask.innerText += `${value } `
+            console.log(value)
+      }
+
+
+      
+    </script>
+</html>

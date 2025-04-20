@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width">
+	  <title>dom</title>
+	  <link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	
+	<body id="body">
+	  <h1>Todo list</h1>
+	  <h4 >1. Take class</h4>
+	  <h4 class="task2" >1 Go out to eat</h4> 
+	  <h4 >1. Take drink</h4>
+	  <h4 >1. Take water</h4>
+        <button onclick="deleting()">delete</button>
+	  
+        <script>
+            function deleting(){
+                const element = document.querySelector("h4");
+                const parentElem = element.parentNode;
+                parentElem.removeChild(element);
+            }
+        </script>
+	</body>
