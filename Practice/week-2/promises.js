@@ -3,15 +3,34 @@
 // } 
 
 function setTimeoutPromisified(ms){
-    return new Promise((resolve)  =>  {
-        return setTimeout(resolve,ms);
-    })
+    return new Promise((resolve)  =>  setTimeout(resolve,ms))
 }
 
 function callBack(){
-    console.log("Hello")
+    console.log("Hi")
 }
 
 // setTimeout(callBack,2000);
-setTimeoutPromisified(3000).then(callBack); 
-  
+
+// promise  with identation
+// setTimeoutPromisified(1000).then(() => {
+    //     console.log("Hi")
+    //     setTimeoutPromisified(3000).then( () => {
+        //         console.log("Hello")
+        //         setTimeoutPromisified(5000).then( () => {
+            //             console.log("Hello there")
+            //         })
+            //     })
+            // }); 
+            
+            
+// promise  without identation that is promisified setTimeout...it also known as promise chaining
+setTimeoutPromisified(1000).then( () => {
+    console.log("HI");
+    return setTimeoutPromisified(3000);
+}).then( () => {
+    console.log("Hello");
+    return setTimeoutPromisified(5000);
+} ).then ( () => {
+    console.log("Hello there");
+})
