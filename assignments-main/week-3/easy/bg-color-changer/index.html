@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+    .csstag{
+        width: 770px;
+        height: 50px;
+        box-shadow: 1px 2px 2px black;
+        margin-top: 650px;
+         border-radius: 10px;
+         position: relative;
+         z-index: 1;
+         background-color: white;
+         padding-top: 15px;
+        }
+        
+        button{
+            height: 40px;
+            width: 80px;
+            margin:0px 10px;
+            border-radius: 10px;
+        
+    }
+    
+    
+    
+    .mid{
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1; 
+    }
+
+    .parentdiv{
+        display: flex;
+        justify-content: center;
+        z-index: 1;
+    }
+    
+</style>
+<body>
+    
+    
+        <div class="parentdiv">
+        <div class="csstag">
+            <button onclick="bgcolor('red')">Red</button>
+            <button onclick="bgcolor('yellow')">Yellow</button>
+            <button onclick="bgcolor('white')">Black</button>
+            <button onclick="bgcolor('purple')">Purple</button>
+            <button onclick="bgcolor('green')">Green</button>
+            <button onclick="bgcolor('blue')">Blue</button>
+            <button onclick="bgcolor('black')">Default</button>
+        </div>
+    </div>
+    <div class="mid"></div>
+
+
+<script>
+    
+function bgcolor(color){
+    document.querySelector(".mid").style.backgroundColor = color;
+  
+
+}
+</script>
+
+    
+</body>
+</html>
