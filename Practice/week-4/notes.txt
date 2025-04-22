@@ -1,0 +1,5 @@
+NODEJS =  node.js is a js runtime and use v8 engine\
+BUN = is a competition of NODEJS..bun is writing js runtime from scratch the zigzag language
+
+both are different 
+speed = bun >node.js
