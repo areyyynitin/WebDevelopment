@@ -3,3 +3,8 @@ BUN = is a competition of NODEJS..bun is writing js runtime from scratch the zig
 
 both are different 
 speed = bun >node.js
+
+
+Internal vs external package
+Internal => node.js provide us eg) fs
+External => node.js doesn't provide but we can install externally..eg)chalk
