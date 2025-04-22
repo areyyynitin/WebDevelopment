@@ -8,3 +8,5 @@ speed = bun >node.js
 Internal vs external package
 Internal => node.js provide us eg) fs
 External => node.js doesn't provide but we can install externally..eg)chalk
+
+//"chalk": "^5.4.1",  "express": "^5.1.0" =>  using cart big problem arise  ..different developer gets different code..so that locak json was introduced
