@@ -25,6 +25,7 @@ const fs = require("fs")
 
 
 function readFile(filename){
+    console.log(process.argv)
     fs.readFile(filename,"utf-8" , (err,data) => {
         let total = 1;
         for(let i=0;i<data.length;i++){
@@ -37,4 +38,4 @@ function readFile(filename){
 
 }
 
-readFile("file.txt")
+readFile(process.argv[2])
