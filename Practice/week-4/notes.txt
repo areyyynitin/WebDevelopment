@@ -14,3 +14,9 @@ External => node.js doesn't provide but we can install externally..eg)chalk
 
 
 /mnt/e/WebDevelopment/Practice/week-4/assignment-1/file.txt
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+For app.get => query paramenter is used like localhost:3000/?n=30 [?n=30] is the query paramaeter
+
+For app.post => 
