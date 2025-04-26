@@ -52,6 +52,18 @@ app.put("/" , (req,res) => {
     res.json({});
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
 app.delete("/" , (req,res) => {
     if(findUnhealthyKidney()){
         const newKidneys=[]
@@ -64,7 +76,12 @@ app.delete("/" , (req,res) => {
     }
     users[0].kidneys=newKidneys
     res.json({msg:"Done"});
-    } else{
+    } 
+    
+    
+    
+    
+    else{
         res.status(411).json({
             msg:"You have no unhealthy kidney"
         });
