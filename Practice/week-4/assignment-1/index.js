@@ -38,4 +38,5 @@ function readFile(filename){
 
 }
 
+
 readFile(process.argv[2])
