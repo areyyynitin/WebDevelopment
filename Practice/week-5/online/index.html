@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+   <div class="post">
+
+   </div>
+
+
+
+    <!-- <script src="script.js"></script> -->
+     <script>
+        async function getRandom(){
+            let dummyWebsite = 'https://jsonplaceholder.typicode.com/posts/1'
+           console.log("before")
+           const response = await  fetch(dummyWebsite);
+           const data = await response.json();
+           console.log(data);
+           console.log("after")
+           document.querySelector(".post").innerHTML = data.body
+         }
+         getRandom();
+       
+        
+     </script>
+</body>
+</html>
