@@ -2,9 +2,9 @@ const express= require("express");
 
 const app = express();
 
-app.get("/multiple" , (req,res) => {
-    const a = (req.query.a)
-    const b = (req.query.b)
+app.get("/multiple/:a/:b" , (req,res) => {
+    const a = (req.params.a)
+    const b = (req.params.b)
 
     res.json({
         ans:a*b
@@ -12,27 +12,27 @@ app.get("/multiple" , (req,res) => {
 })
 
 
-app.get("/sum" , (req,res) => {
-    const a = parseInt(req.query.a)
-    const b = parseInt(req.query.b)
+app.get("/add/:a/:b" , (req,res) => {
+    const a = parseInt(req.params.a)
+    const b = parseInt(req.params.b)
 
     res.json({
         ans:a+b
     })
 })
 
-app.get("/divie" , (req,res) => {
-   const a = req.query.a
-   const b =  req.query.b
+app.get("/divide/:a/:b" , (req,res) => {
+   const a = req.params.a
+   const b =  req.params.b
 
    res.json({
     ans:a/b
    })
 })
 
-app.get("/subtract" , (req,res) => {
-    const a = req.query.a
-    const b = req.query.b
+app.get("/subtract/:a/:b" , (req,res) => {
+    const a = parseInt(req.params.a)
+    const b = parseInt(req.params.b)
 
     res.json({
         ans:a-b
