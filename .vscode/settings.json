@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/assignments-main/week-1/problems/1-vertical-align/index.html"
+    "livePreview.defaultPreviewPath": "/assignments-main/week-1/problems/1-vertical-align/index.html",
+    "postman.settings.dotenv-detection-notification-visibility": false
 }
