@@ -43,7 +43,7 @@ app.post("/signin",logger, (req,res) => {
 
     if(foundUser){
         const token = jwt.sign({
-            username:username 
+            username:foundUser.username 
         },JWT_SECRET)
 
         res.json({
