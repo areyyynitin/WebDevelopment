@@ -1,7 +1,7 @@
 const express = require("express");
 const {UserModel , TodoModel} = require("./db")
 const jwt = require("jsonwebtoken");
-const { default: mongoose } = require("mongoose");
+const  mongoose = require("mongoose");
 const JWT_SECRET = "asdfghjkl"
 mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/todo-2").then(() => console.log("Connected to DB")).catch(err => console.error("DB connection error:", err));
 
@@ -22,7 +22,7 @@ app.post("/signup" , async (req,res)=>{
     })
 
     res.json({
-        message:"Yoou\ are sign up!"
+        message:"Yoou are sign up!"
     })
 }) 
 
@@ -39,7 +39,7 @@ app.post("/signin" , async (req,res)=>{
 
     if(user){
         const token = jwt.sign({
-            id:user._id
+            id:user._id.toString()
         },JWT_SECRET)
          res.json({
             token:token
@@ -51,12 +51,45 @@ app.post("/signin" , async (req,res)=>{
     }
 })
 
-app.post("/todo" , (req,res)=>{
+app.post("/todo" ,auth, (req,res)=>{
+    const userId = req.userId
+    const title = req.body.title
+
+    TodoModel.create({
+        title,
+        userId
+    })
+
+    res.json({
+        userId:userId
+    })
+})
+
+app.get("/todos" ,auth, async (req,res)=>{
+    const userId = req.userId
+    const todos = await TodoModel.find({
+        userId:userId
+    })
+
+    res.json({
+       todos
+    })
 
 })
 
-app.get("/todos" , (req,res)=>{
 
-})
+function auth(req,res,next){
+    const token = req.headers.token;
+    const decodeddata = jwt.verify(token,JWT_SECRET);
+
+    if(decodeddata){
+        req.userId = decodeddata.id
+        next()
+    } else{
+        res.status(403).json({
+            message:"Incorrect crediantials"
+        })
+    }
+}
 
 app.listen(3000);
