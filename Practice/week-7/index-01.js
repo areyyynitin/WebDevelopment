@@ -5,38 +5,74 @@ const jwt = require("jsonwebtoken");
 const  mongoose = require("mongoose");
 const JWT_SECRET = "asdfghjkl"
 mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/todo-2-0").then(() => console.log("Connected to DB")).catch(err => console.error("DB connection error:", err));
+const {z} = require("zod")
 
 
 const app = express();
 app.use(express.json());
 
 let errorthrown = false;
+// app.post("/signup" , async (req,res)=>{
+//     const username = req.body.username;
+//     const password = req.body.password;
+//     const name = req.body.name;
+
+//     try{
+//     const hashedPassword =await brcypt.hash(password,5);
+//     console.log(hashedPassword) 
+//     await  UserModel.create({
+//         username:username,
+//         password:hashedPassword,
+//         name:name
+//     })
+// } catch(e){
+//     console.log("error while putting this into DB")
+//     res.json({
+//         message:"Heyy dear...Username are already exist"
+//     })
+//     errorthrown=true;
+// }
+//     if(!errorthrown){
+//     res.json({
+//         message:"Yoou are sign up!"
+//     })
+// }
+// }) 
+
 app.post("/signup" , async (req,res)=>{
+
+    const requiredBody = z.object({
+        username:z.string().email().min(3).max(100),
+        name:z.string().min(3).max(100),
+        password:z.string().min(3).max(30)
+    })
     const username = req.body.username;
     const password = req.body.password;
     const name = req.body.name;
+    
+    const parsedDataWithSuccess = requiredBody.safeParse(req.body);
 
-    try{
+    if(!parsedDataWithSuccess.success){
+        res.json({
+            message:"incorrect format",
+            error : parsedDataWithSuccess.error
+        })
+        return
+    }
+
     const hashedPassword =await brcypt.hash(password,5);
-    console.log(hashedPassword)
+    console.log(hashedPassword) 
     await  UserModel.create({
         username:username,
         password:hashedPassword,
         name:name
     })
-} catch(e){
-    console.log("error while putting this into DB")
-    res.json({
-        message:"Heyy dear...Username are already exist"
-    })
-    errorthrown=true;
-}
-    if(!errorthrown){
     res.json({
         message:"Yoou are sign up!"
     })
-}
+    
 }) 
+
 
 app.post("/signin" , async (req,res)=>{
     const username = req.body.username;
