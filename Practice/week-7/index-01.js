@@ -6,8 +6,6 @@ const  mongoose = require("mongoose");
 const JWT_SECRET = "asdfghjkl"
 mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/todo-2-0").then(() => console.log("Connected to DB")).catch(err => console.error("DB connection error:", err));
 const {z} = require("zod")
-
-
 const app = express();
 app.use(express.json());
 
