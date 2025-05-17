@@ -2,7 +2,7 @@ const {Router} = require("express")
 
 const userRouter = Router();
 
-    userRouter.post("/user/signup" , (req,res) => {
+    userRouter.post("/signup" , (req,res) => {
         const email = req.body.email;
         const password = req.body.password
         const name = req.body.name
@@ -12,13 +12,13 @@ const userRouter = Router();
         })
     })
 
-    userRouter.post("user/login" , (req,res) => {
+    userRouter.post("/login" , (req,res) => {
         res.json({
          message:"User login"
         })
     })
 
-    userRouter.get("/user/purchase" , (req,res) => {
+    userRouter.get("/purchase" , (req,res) => {
         res.json({
          message:"User can view courses..that they buy"
         })

@@ -1,7 +1,7 @@
 const {Router} = require("express")
 const courseRouter = Router();
 
-    courseRouter.get("/preivew" , (req,res) => {
+    courseRouter.get("/preview" , (req,res) => {
         res.json({
          message:"User can view all the course that are listed to buy"
         })
