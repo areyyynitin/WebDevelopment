@@ -6,7 +6,9 @@ const app = express();
 app.use(express.json())
 
 app.post("/user/signup" , (req,res) => {
-
+    const email = req.body.email;
+    const password = req.body.password
+    const name = req.body.name
 })
 
 app.post("user/login" , (req,res) => {
