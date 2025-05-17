@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const objectId = mongoose.ObjectId
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/course-selling").then( () => { console.log("Connected to DB") }).catch( e => console.error("Cannot connected to DB" , e))
+//  mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/course-selling").then( () => console.log("Connected to db")).catch( (err) => console.log(err))
+
 
 const userSchema = new Schema({
     email:{type:String,unique:true},
