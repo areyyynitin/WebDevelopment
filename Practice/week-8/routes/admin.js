@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const {JWT_ADMIN_SECRET} = require("../config");
 const { adminMiddleware } = require("../middleware/admin");
+const admin = require("../middleware/admin");
 
 adminRouter.post("/signup" ,async (req,res) => {
     const requiredBody = z.object({
@@ -87,14 +88,35 @@ adminRouter.post("/course" , adminMiddleware, async(req,res) => {
     })
 })
 
-adminRouter.put("/course" , (req,res) => {
+adminRouter.put("/course" ,adminMiddleware, async (req,res) => {
+    const adminId = req.userId
+    const {title,description,imageURL,price,courseId} = req.body
+
+    const course = await courseModel.updateOne({
+        _id:courseId,
+        creatorId:adminId
+    },{
+        title,
+        description,
+        imageURL,
+        price
+    })
     res.json({
-        message:"Admin can update course content"
+        message:"Admin update courses",
+        course:course._id
     })
 })
-adminRouter.get("/course/bulk" , (req,res) => {
+
+
+adminRouter.get("/course/bulk" ,adminMiddleware,async (req,res) => {
+    const adminId = req.userId
+    
+    const courses = await courseModel.find({
+        creatorId:adminId
+    })
     res.json({
-        message:"admin can  delete course"
+        message:"Admin update",
+        courses
     })
 })
 
