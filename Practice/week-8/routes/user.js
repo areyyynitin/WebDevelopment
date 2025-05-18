@@ -4,7 +4,7 @@ const {userModel} = require("../db")
 const userRouter = Router();
 const bcrypt = require("bcrypt");
 const jwt  = require("jsonwebtoken");
-const JWT_USER_SECRET = "userSECRET"
+const {JWT_USER_SECRET} = require("../config")
 
     userRouter.post("/signup" ,async (req,res) => {
         const requiredBody = z.object({

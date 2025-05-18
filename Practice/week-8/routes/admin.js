@@ -1,10 +1,11 @@
 const {Router, response} = require("express")
 const adminRouter = Router();
-const {adminModel} = require("../db")
+const {adminModel, courseModel} = require("../db")
 const {z} = require("zod")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const JWT_ADMIN_SECRET = "adminSECRET"
+const {JWT_ADMIN_SECRET} = require("../config");
+const { adminMiddleware } = require("../middleware/admin");
 
 adminRouter.post("/signup" ,async (req,res) => {
     const requiredBody = z.object({
@@ -69,18 +70,29 @@ adminRouter.post("/login" ,async (req,res) => {
     }
 })
 
-adminRouter.post("/" , (req,res) => {
+adminRouter.post("/course" , adminMiddleware, async(req,res) => {
+    const adminId = req.userId
+    const {title,description,imageURL,price} = req.body
+
+    const course = await courseModel.create({
+        title,
+        description,
+        imageURL,
+        price,
+        creatorId:adminId
+    })
     res.json({
-        message:"Admin create courses point"
+        message:"Admin create courses point",
+        course:course._id
     })
 })
 
-adminRouter.put("/" , (req,res) => {
+adminRouter.put("/course" , (req,res) => {
     res.json({
         message:"Admin can update course content"
     })
 })
-adminRouter.get("/bulk" , (req,res) => {
+adminRouter.get("/course/bulk" , (req,res) => {
     res.json({
         message:"admin can  delete course"
     })
