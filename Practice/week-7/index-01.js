@@ -80,7 +80,7 @@ app.post("/signin" , async (req,res)=>{
         username:username
         // password:password
     })
-
+   
     if(!response){
         res.status(403).json({
             messsage:"User does not exit"
@@ -98,8 +98,8 @@ app.post("/signin" , async (req,res)=>{
             token:token
          })
     } else{
-        res.status(403).json({
-            message:"Incorrect crediantials"
+        res.status(403).json({ 
+            message:"Incorrect credentials"
         })
     }
 })
