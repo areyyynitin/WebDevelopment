@@ -83,7 +83,7 @@ adminRouter.post("/course" , adminMiddleware, async(req,res) => {
         creatorId:adminId
     })
     res.json({
-        message:"Admin create courses point",
+        message:"Admin create courses successfully",
         course:course._id
     })
 })
