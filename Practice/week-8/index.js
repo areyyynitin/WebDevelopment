@@ -15,7 +15,7 @@ app.use("/api/v1/admin" , adminRouter)
 
  
 async function main(){
-    await mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/course-selling")
+    await mongoose.connect("")
     app.listen(3000);
     console.log("Listening on 3000") 
 }
