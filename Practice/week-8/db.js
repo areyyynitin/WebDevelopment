@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const objectId = mongoose.ObjectId
+const ObjectId = mongoose.Types.ObjectId
 //  mongoose.connect("mongodb+srv://admin:admin123@cluster0.48ahzge.mongodb.net/course-selling").then( () => console.log("Connected to db")).catch( (err) => console.log(err))
 
 
@@ -15,7 +15,7 @@ const adminSchema = new Schema({
     email:{type:String,unique:true},
     password:String,
     firstName:String,
-    lastName:String
+    lastName:String   
 })
 
 const courseSchema = new Schema({
@@ -23,12 +23,12 @@ const courseSchema = new Schema({
     description:String,
     price:Number,
     imageURL:String,
-    creatorId:objectId
+    creatorId:ObjectId
 })
 
 const purchaseSchema = new Schema({
-    courseId: objectId,
-    userid:objectId
+    userId:ObjectId,
+    courseId: ObjectId
 })
 
 const  userModel = mongoose.model("user",userSchema);

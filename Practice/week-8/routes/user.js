@@ -1,11 +1,14 @@
 const {Router} = require("express")
 const {z} = require("zod")
-const {userModel, purchaseModel} = require("../db")
+const {userModel, purchaseModel, courseModel} = require("../db")
 const userRouter = Router();
 const bcrypt = require("bcrypt");
 const jwt  = require("jsonwebtoken");
 const {JWT_USER_SECRET} = require("../config")
 const {userMiddleware} = require("../middleware/user")
+const mongoose = require("mongoose")
+
+
 
     userRouter.post("/signup" ,async (req,res) => {
         const requiredBody = z.object({
@@ -70,16 +73,39 @@ const {userMiddleware} = require("../middleware/user")
         }
     })
 
-    userRouter.get("/purchase" ,userMiddleware, async(req,res) => {
+    userRouter.get("/purchases", userMiddleware, async function (req, res) {
         const userId = req.userId;
+        const purchases = await purchaseModel.find({
+        userId: userId, // Querying purchases by user ID
+        });
 
-       const purchases =  await purchaseModel.findOne({
-            userid
-        })
-        res.json({
-            purchases
-        })
-    })
+
+        if (!purchases) {
+            return res.status(404).json({
+            message: "No purchases found",
+            });
+        }
+
+
+         const purchasesCourseIds = purchases.map((purchase) => purchase.courseId);
+
+
+        const coursesData = await courseModel.find({
+             _id: { $in: purchasesCourseIds },
+        });
+
+        if (!coursesData) {
+            return res.status(404).json({
+                 message: "No courses found for the purchased IDs",
+            });
+        }
+
+        res.status(200).json({
+            purchases, 
+            coursesData, 
+            });
+        });
+
 
     
 module.exports ={

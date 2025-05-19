@@ -3,13 +3,14 @@ const { userMiddleware } = require("../middleware/user");
 const { purchaseModel, courseModel } = require("../db");
 const courseRouter = Router();
 
-    
+
 
     courseRouter.post("/purchase" ,userMiddleware,async (req,res) => {
-        const {userId , courseId} = req.body
+        const userId=req.body
+        const courseId = req.body.courseId;
 
         await purchaseModel.create({
-            userid,
+            userId,
             courseId
         })
         res.json({
