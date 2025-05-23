@@ -1,29 +1,38 @@
+import { useState } from 'react'
 import { PostComponent } from './post'
 
 
 function App() {
-  function addPost(){
+    const [posts,setPosts] = useState([]);
 
+  
+
+  const postComponents = posts.map(post => <PostComponent 
+      name = {post.name}
+      subtitle = {post.subtitle}
+      time = {post.time}
+      image ={post.image}
+      description ={post.description}
+  />)
+
+  function addPost(){
+    setPosts([...posts , {
+       name : "100x devs",
+      subtitle : "23000 followers",
+      time : 5,
+      image : "https://t3.ftcdn.net/jpg/13/05/21/34/240_F_1305213469_KY3qx23jZ6BeHS3CVxazrZsfoXczdLeb.jpg",
+      description :"I got job  in Vishal Mega Mart "
+    }])
   }
 
-  return (
-    <div style={{backgroundColor:"#dfe6e9",height:"200vh"}}>
+    return (
+      <div style={{backgroundColor:"#dfe6e9",height:"200vh"}}>
       <button onClick={addPost}>Add post</button>
-      <div style={{display:"flex",justifyContent:"center"}}>
-    
-      <div>
-        <br/>
-        <PostComponent 
-            image ={ "https://t3.ftcdn.net/jpg/13/05/21/34/240_F_1305213469_KY3qx23jZ6BeHS3CVxazrZsfoXczdLeb.jpg"}
-            name = {"100x devs"}
-            subtitle = {"23000 followers"}
-            time = {5}
-            description ={"I got job  in Vishal Mega Mart "}
-        />
+        <div style={{display:"flex",justifyContent:"center"}}>
+         <div><br/> {postComponents}</div>
+        </div>
       </div>
-    </div>
-  </div>
-  )
+    )
 }
 
 
