@@ -15,6 +15,7 @@ function App() {
       description ={post.description}
   />)
 
+
   function addPost(){
     setPosts([...posts , {
        name : "100x devs",
