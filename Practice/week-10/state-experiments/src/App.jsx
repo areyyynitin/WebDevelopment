@@ -56,6 +56,7 @@ export default App
 
 // context api
 // 1st create context for those data we want to transfer in another function
+// const BulbContext = createContext();
 // 2nd wrappe you code in provider 
 // before 
 {/* <Light />  
@@ -64,8 +65,8 @@ after:
 <Light />  
 </BulbContext> */} 
 // we havve to use provider to providing the value to all children
-//  <Light/> in thit we have to provide a value ..so that children  can access it
-//  <Light value={{
+// <BulbContext> in thit we have to provide a value ..so that children  can access it
+//  <BulbContext value={{
 //   bulbOn:bulbOn,
 //   setBulbOn:setBulbOonf
 //  }} />
