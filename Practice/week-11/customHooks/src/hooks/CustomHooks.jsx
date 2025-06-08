@@ -11,3 +11,6 @@ export default function useCounter(){
     increaseCount:increaseCount
   }
 }
+
+// if dependecies is empty,whatever login is writtern here..when app component mount
+// whenver the component is render the first time is render ... 
