@@ -1,30 +1,53 @@
-// function greet(user:{name:string,age:number,gender:boolean}){
-//     console.log(`Hello ..his name was ${user.name} and his/her age is ${user.age} `)
+
+// // Unions
+// type GoodUser = {
+//     name : string;
+//     gift : string
 // }
 
-// greet({
-//     name:"nitin",
-//     age:20,
-//     gender:true
-// })
+// type BadUser = {
+//     name : string;
+//     ip : string
+// }
+
+// type User = GoodUser | BadUser
+
+// const user:User = {
+//     name:"Nitin",
+//     ip:"189.0.5.809"
+// }
 
 
-interface UserType  {
-    name:string,
-    lastname:string,
-    isSmoke:boolean
-    age:number,
-}
 
-let user:UserType ={
-    name:"Nitin",
-    lastname:"Prajapat",
-    age:20,
-    isSmoke:false
-}
 
-function biodata(pizza:UserType){
-    console.log(`${user.name} , ${user.lastname} , ${user.age} , ${user.isSmoke}`)
-}
+// InterSection
+// type Employee = {
+//     name : string;
+//     startDate : Date
+// };
 
-biodata(user)
+// type Manager = {
+//     name : string
+//     department : string
+// };
+
+// type TeamLead = Employee & Manager
+
+// let e : Employee = {
+//     name : "Nitin",
+//     startDate : new Date("2025-06-23")
+// }
+
+// let m : Manager = {
+//     name : "Ramesh Ji",
+//     department : "Electroncis"
+// }
+
+
+// const teamLead : TeamLead = {
+//     name:"Nitin",
+//     department:"SDE",
+//     startDate: new Date("2025-06-23")
+// }
+
+// console.log(teamLead.department)
