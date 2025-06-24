@@ -1,3 +1,4 @@
+// // Pick want 2 things user properties and inside user ..whatever we have name,age..picck also this waant so it pick name,age from user
 // interface User {
 //     id:string
 //     name:string,
@@ -22,19 +23,38 @@
 
 //  // // // /  /  / / / // /  / / / / / /  
 // ReadOnly
+// type User  = {
+//     name:string,
+//     age:number
+// }
+
+
+// const person : Readonly<User> = {
+//     name:"asdfgghjhjk",
+//     age:23456789
+// } 
+// person.age = 6
+
+// console.log(person.age)
+
+
+// //////////////////////// RECORD///////////
 type User  = {
     name:string,
     age:number
 }
 
+// type Users = Record <string, {name:string,age:number}>
 
-const person : Readonly<User> = {
-    name:"asdfgghjhjk",
-    age:23456789
-} 
-person.age = 6
+// const data:Users = {
+//     "sdfghjk" : {name:"nitin" , age:234567},
+//     "sdfxcghjk" : {name:"nitin" , age:987654321}
+// }
 
-console.log(person.age)
+// console.log(data)
+
+// const users = new Map()
+// users.set("id1" , {name:"Nitin" , age:34})
+// users.set("id2" , {name:"Nitin" , age:9})
 
 
-// // Pick want 2 things user properties and inside user ..whatever we have name,age..picck also this waant so it pick name,age from user
