@@ -1,16 +1,15 @@
-import { Mode } from "fs";
 import mongoose,{Schema,Document,Model} from "mongoose";
 
-type DatabaseType = Document & {
-    title:string ,
-    content: string
+type UserSchemaType = Document & {
+    username:string ,
+    password: string
 }
 
-const databaseSchema : Schema<DatabaseType> = new Schema({
-    title:String,
-    content:String
+const UserSchema : Schema<UserSchemaType> = new Schema({
+    username:{type:String , unique:true},
+    password:{type:String , unique:true}
 })
 
-const databseModel:Model<DatabaseType> = mongoose.model<DatabaseType>('DatabaseModel',databaseSchema)
+const UserModel:Model<UserSchemaType> = mongoose.model<UserSchemaType>('UserSchema',UserSchema)
 
-export default databseModel;
+export default UserModel
