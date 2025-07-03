@@ -2,8 +2,9 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
-import UserModel from "./models/database";
-const JWT_PASSWORD = "qwerty"
+import { ContentModel, UserModel } from "./models/database";
+import { JWT_PASSWORD } from "./config";
+import { UserMiddleware } from "./middleware";
 dotenv.config();
 
 const app: Express = express();
@@ -44,12 +45,25 @@ app.post("/api/v1/signin", async (req: Request, res: Response) => {
 
 });
 
-app.post("/api/v1/content", (req: Response, res: Request) => {});
+app.post("/api/v1/content", UserMiddleware ,async (req: Request, res: Response) => {
+  const link = req.body.link;
+  const title = req.body.type;
+  await  ContentModel.create({
+    link,title,
+  // @ts-ignore
+  userId : req.userId,
+  tags:[]
+  })
+  
+  res.status(200).json({message:"Content added"});
+});
 
-app.get("/api/v1/content", async (req: Request, res: Response) => {
+app.get("/api/v1/content",UserMiddleware, async (req: Request, res: Response) => {
   try {
-    const notes = await UserModel.find({});
-    res.status(200).json({ notes });
+    // @ts-ignore
+    const userId = req.userId
+    const content = await ContentModel.find({userId});
+    res.status(200).json({ content });
   } catch (error) {
     console.error(error);
     res.status(500).json({
