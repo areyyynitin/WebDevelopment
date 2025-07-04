@@ -47,9 +47,9 @@ app.post("/api/v1/signin", async (req: Request, res: Response) => {
 
 app.post("/api/v1/content", UserMiddleware ,async (req: Request, res: Response) => {
   const link = req.body.link;
-  const title = req.body.type;
+  const type = req.body.type;
   await  ContentModel.create({
-    link,title,
+    link,type,
   // @ts-ignore
   userId : req.userId,
   tags:[]
@@ -62,7 +62,9 @@ app.get("/api/v1/content",UserMiddleware, async (req: Request, res: Response) =>
   try {
     // @ts-ignore
     const userId = req.userId
-    const content = await ContentModel.find({userId});
+    const content = await ContentModel.find({
+      userId:userId
+    }).populate("userId" , "username");
     res.status(200).json({ content });
   } catch (error) {
     console.error(error);
@@ -72,7 +74,21 @@ app.get("/api/v1/content",UserMiddleware, async (req: Request, res: Response) =>
   }
 });
 
-app.delete("/api/v1/content", (req: Request, res: Response) => {});
+app.delete("/api/v1/content",UserMiddleware , async (req: Request, res: Response) => {
+  try {
+    const contentId = req.body.contentId;
+  await ContentModel.deleteMany({
+    contentId,
+    // @ts-ignore
+    userId:req.userId
+  })
+
+  res.status(200).json("message:Content Deleted")
+  } catch (error) {
+    res.status(404).json({Error:error})
+  }
+  
+});
 
 app.post("/api/v1/brain/share", (req: Request, res: Response) => {});
 
