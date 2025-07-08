@@ -1,11 +1,13 @@
-import React from 'react'
+import { Button } from "./components/Buttons";
+import { PlusIcons } from "./icons/PlusIcons";
+import { ShareIcon } from "./icons/ShareIcon";
 
 const App = () => {
   return (
-    <div>App
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="">
+    <Button variant="primary" text="Add content" startIcon={<PlusIcons/>}></Button>
+    <Button variant="secondary" text="Share brain" startIcon={<ShareIcon/>}></Button>
+  
     </div>
   )
 }
