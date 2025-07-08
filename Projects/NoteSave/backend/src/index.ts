@@ -2,9 +2,10 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
-import { ContentModel, UserModel } from "./models/database";
+import { ContentModel, LinkModel, UserModel } from "./models/database";
 import { JWT_PASSWORD } from "./config";
 import { UserMiddleware } from "./middleware";
+import { random } from "./util";
 dotenv.config();
 
 const app: Express = express();
@@ -90,9 +91,30 @@ app.delete("/api/v1/content",UserMiddleware , async (req: Request, res: Response
   
 });
 
-app.post("/api/v1/brain/share", (req: Request, res: Response) => {});
+app.post("/api/v1/brain/share",UserMiddleware ,async(req, res) => {
+  const share = req.body.share
+  if(share){
+   await LinkModel.create({
+      // @ts-ignore
+    userId : req.userId,
+    hash:random(10)
+  })
+  } else{
+   await LinkModel.deleteOne({
+      // @ts-ignore
+      userId:req.userId
+    })
+  }
 
-app.get("/api/v1/brain/:sharelink", (req: Request, res: Response) => {});
+  res.json({message:"Updated sharable link"})
+});
+
+app.get("/api/v1/brain/:sharelink" ,async (req: Request, res: Response) => {
+  const hash = req.params.sharelink
+  await LinkModel.findOne({
+    hash:hash
+  })
+});
 
 mongoose
   .connect(process.env.MONGO_URI)

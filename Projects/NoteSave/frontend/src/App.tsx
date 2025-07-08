@@ -8,9 +8,6 @@ function App() {
 
   return (
    <>
-<h1 className="text-3xl font-bold ">
-      Hello world!
-    </h1>
     <Button startIcon={<PlusIcons size='sm'  />} size='sm' variant='primary' text='Share' endIcon={<ShareIcon size='sm' />} />
     <br />
     <Button startIcon={<PlusIcons size='md'/>} size='md' variant='primary' text='Add Content' endIcon={<ShareIcon size='md' />} />
@@ -23,6 +20,7 @@ function App() {
     <br />
     <Button startIcon={<PlusIcons size='lg'/>} size='lg' variant='secondary' text='Add Content' endIcon={<ShareIcon size='lg'/>} />
     <br />
+   
    </>
   )
 }

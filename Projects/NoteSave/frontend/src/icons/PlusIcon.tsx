@@ -9,7 +9,7 @@ export const PlusIcons = (props:IconProps) => {
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        className={IconSizeVariant[props.size]}
+        className={IconSizeVariant[props.size || "sm"]}
       >
         <path
           stroke-linecap="round"
