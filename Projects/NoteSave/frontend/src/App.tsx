@@ -1,15 +1,12 @@
-import { Button } from "./components/Buttons";
-import { PlusIcons } from "./icons/PlusIcons";
-import { ShareIcon } from "./icons/ShareIcon";
+import React from 'react'
+import Dashboard from './pages/Dashboard'
 
 const App = () => {
   return (
-    <div className="">
-    <Button variant="primary" text="Add content" startIcon={<PlusIcons/>}></Button>
-    <Button variant="secondary" text="Share brain" startIcon={<ShareIcon/>}></Button>
-  
+    <div>
+      <Dashboard/>
     </div>
   )
 }
 
-export default App;
+export default App
