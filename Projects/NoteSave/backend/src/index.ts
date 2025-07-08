@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import { ContentModel, LinkModel, UserModel } from "./models/database";
 import { JWT_PASSWORD } from "./config";
 import { UserMiddleware } from "./middleware";
@@ -16,7 +16,7 @@ if (!process.env.MONGO_URI) {
   throw new Error("MONGO_URI environment variable is not defined");
 }
 
-app.post("/api/v1/signup", async (req: Request, res: Response) => {
+app.post("/api/v1/brain/signup", async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
     const note = new UserModel({
@@ -31,89 +31,139 @@ app.post("/api/v1/signup", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/api/v1/signin", async (req: Request, res: Response) => {
-  const {username,password} = req.body;
-  const existingUser = await UserModel.findOne({username,password})
-  if(existingUser){
-    const token = jwt.sign({
-      id:existingUser._id
-    },JWT_PASSWORD)
+app.post("/api/v1/brain/signin", async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  const existingUser = await UserModel.findOne({ username, password });
+  if (existingUser) {
+    const token = jwt.sign(
+      {
+        id: existingUser._id,
+      },
+      JWT_PASSWORD
+    );
 
-    res.status(200).json({message:token})
-  } else{
-    res.status(403).json({message:"User not exist! Signup First"})
+    res.status(200).json({ message: token });
+  } else {
+    res.status(403).json({ message: "User not exist! Signup First" });
   }
-
 });
 
-app.post("/api/v1/content", UserMiddleware ,async (req: Request, res: Response) => {
-  const link = req.body.link;
-  const type = req.body.type;
-  await  ContentModel.create({
-    link,type,
-  // @ts-ignore
-  userId : req.userId,
-  tags:[]
-  })
-  
-  res.status(200).json({message:"Content added"});
-});
-
-app.get("/api/v1/content",UserMiddleware, async (req: Request, res: Response) => {
-  try {
-    // @ts-ignore
-    const userId = req.userId
-    const content = await ContentModel.find({
-      userId:userId
-    }).populate("userId" , "username");
-    res.status(200).json({ content });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error,
+app.post(
+  "/api/v1/brain/content",
+  UserMiddleware,
+  async (req: Request, res: Response) => {
+    const link = req.body.link;
+    const type = req.body.type;
+    await ContentModel.create({
+      link,
+      type,
+      // @ts-ignore
+      userId: req.userId,
+      tags: [],
     });
+
+    res.status(200).json({ message: "Content added" });
   }
-});
+);
 
-app.delete("/api/v1/content",UserMiddleware , async (req: Request, res: Response) => {
-  try {
-    const contentId = req.body.contentId;
-  await ContentModel.deleteMany({
-    contentId,
-    // @ts-ignore
-    userId:req.userId
-  })
-
-  res.status(200).json("message:Content Deleted")
-  } catch (error) {
-    res.status(404).json({Error:error})
-  }
-  
-});
-
-app.post("/api/v1/brain/share",UserMiddleware ,async(req, res) => {
-  const share = req.body.share
-  if(share){
-   await LinkModel.create({
+app.get(
+  "/api/v1/brain/content",
+  UserMiddleware,
+  async (req: Request, res: Response) => {
+    try {
       // @ts-ignore
-    userId : req.userId,
-    hash:random(10)
-  })
-  } else{
-   await LinkModel.deleteOne({
-      // @ts-ignore
-      userId:req.userId
-    })
+      const userId = req.userId;
+      const content = await ContentModel.find({
+        userId: userId,
+      }).populate("userId", "username");
+      res.status(200).json({ content });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        message: error,
+      });
+    }
   }
+);
 
-  res.json({message:"Updated sharable link"})
+app.delete(
+  "/api/v1/brain/content",
+  UserMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const contentId = req.body.contentId;
+      await ContentModel.deleteMany({
+        contentId,
+        // @ts-ignore
+        userId: req.userId,
+      });
+
+      res.status(200).json("message:Content Deleted");
+    } catch (error) {
+      res.status(404).json({ Error: error });
+    }
+  }
+);
+
+app.post("/api/v1/brain/share", UserMiddleware, async (req, res) => {
+  const share = req.body.share;
+  if (share) {
+    const existingLink = await LinkModel.findOne({
+      // @ts-ignore
+      userId: req.userId,
+    });
+
+    if(existingLink){
+      res.json({hash:existingLink.hash})
+      return
+    }
+    const hash = random(10);
+    await LinkModel.create({
+      // @ts-ignore
+      userId: req.userId,
+      hash: hash,
+    });
+
+    res.json({ hash });
+  } else {
+    await LinkModel.deleteOne({
+      // @ts-ignore
+      userId: req.userId,
+    });
+    res.json({ message: `removed link` });
+  }
 });
 
-app.get("/api/v1/brain/:sharelink" ,async (req: Request, res: Response) => {
-  const hash = req.params.sharelink
-  await LinkModel.findOne({
-    hash:hash
-  })
+app.get("/api/v1/brain/:sharelink", async (req: Request, res: Response) => {
+  const hash = req.params.sharelink;
+  const link = await LinkModel.findOne({
+    hash: hash,
+  });
+  if (!link) {
+    res.status(411).json({ message: "Soory! Incorrect input" });
+    return;
+  }
+
+  // userId
+  const content = await ContentModel.find({
+    userId: link.userId,
+  });
+ 
+  const user = await UserModel.findOne({
+    _id: link.userId
+  });
+
+  if (!user) {
+    res.status(411).json({
+      message: `User not found, error should ideally not happen ${user}`,
+    });
+    return;
+  }
+
+  res.json({
+    username: user.username,
+    content: content,
+  });
 });
 
 mongoose
