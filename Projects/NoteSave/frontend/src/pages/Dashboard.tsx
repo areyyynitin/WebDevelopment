@@ -12,21 +12,19 @@ import BACKEND_URL from "../config";
 const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false)
   // @ts-ignore
-  const {contents , refresh} = useContent()
+  const { contents, refresh } = useContent()
 
   useEffect(() => {
     refresh()
-  } ,[modalOpen])
+  }, [modalOpen])
 
   return (
     <div>
       <Sidebar />
-
       <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2">
         <CreateContentModal open={modalOpen} onClose={() => {
           setModalOpen(false)
         }} />
-
         <div className="flex justify-end gap-4">
           <Button
             onClick={() => { setModalOpen(true) }}
@@ -34,29 +32,25 @@ const Dashboard = () => {
             text="Add content"
             startIcon={<PlusIcons />}
           ></Button>
+
           <Button
-          onClick={async () => {
-        const response =  await  axios.post(`${BACKEND_URL}/api/v1/brain/share` ,{
-              share:true
-            }, {
-              headers:{
-                "Authorization":localStorage.getItem("token")
-              }
-            })
-         const shareUrl = `http://localhost:5173/share/${response.data.hash}`  
-         alert(shareUrl)
-          }}
+            onClick={async () => {
+              const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
+                share: true
+              }, {
+                headers: {
+                  "Authorization": localStorage.getItem("token")
+                }
+              })
+              const shareUrl = `http://localhost:5173/share/${response.data.hash}`
+              alert(shareUrl)
+            }}
             variant="secondary"
             text="Share brain"
             startIcon={<ShareIcon />}
           ></Button>
         </div>
-        <div className="flex gap-4 flex-wrap">
-
-
-         
-         
-
+        <div className="flex gap-4 flex-wrap pt-5">
           {contents.map(({ type, title, link }) =>
             <Card
               title={title}
@@ -64,17 +58,8 @@ const Dashboard = () => {
               link={link}
             />
           )}
-
-         
-
-
-
         </div>
       </div>
-
-
-
-
     </div>
   );
 };

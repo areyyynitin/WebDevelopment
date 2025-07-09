@@ -10,7 +10,7 @@ enum ContentType {
   Youtube = "youtube",
   Twitter = "twitter"
 }
-export const CreateContentModal = ({open, onClose}) => {
+export const CreateContentModal = ({open, onClose} : any) => {
   // @ts-ignore
   const titleRef = useRef<HTMLInputElement>()
   // @ts-ignore

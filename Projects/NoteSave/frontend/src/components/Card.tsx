@@ -1,4 +1,6 @@
-import { ShareIcon } from "../icons/ShareIcon";
+import { Deleteicons } from "../icons/Deleteicons";
+import { NoteIcons } from "../icons/NoteIcons";
+import { RedirectIcon } from "../icons/RedirectIcon";
 interface CardProps{
     title:string;
     link:string;
@@ -9,21 +11,20 @@ export const Card = ({title,link,type}:CardProps) => {
   return (
     <>
       <div>
-        <div className="p-4 rounded-md bg-white shadow-md border  border-gray-200 max-w-72 min-h-72 min-w-72">
+        <div className="p-4 rounded-md bg-white shadow-md border  border-gray-200 max-w-72 min-h-72 min-w-72 ">
           <div className="flex justify-between ">
             <div className="flex items-center ">
-              <div className=" text-gray-600 pr-2">
-                <ShareIcon />
+              <div className=" text-black pr-2">
+                <NoteIcons />
               </div>
              {title}
             </div>
-
             <div className="flex items-center">
-              <div className="pr-2 text-gray-600">
-                <a href={link} target="_blank"><ShareIcon /></a>
+              <div className="pr-2 text-gray-600 hover:text-black">
+                <a href={link} target="_blank"><RedirectIcon /></a>
               </div>
-              <div className=" text-gray-600">
-                <ShareIcon />
+              <div className=" text-gray-600 hover:text-black cursor-pointer">
+                <Deleteicons />
               </div>
             </div>
           </div>
