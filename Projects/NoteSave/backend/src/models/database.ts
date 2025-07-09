@@ -6,13 +6,13 @@ const UserSchema = new Schema({
   password: { type: String, unique: true },
 });
 
-const contentTypes = ["images", "video", "article", "audio"];
+
 const ContentSchema = new Schema({
   title: { type: String },
-  link: { type: String, required: true },
+  link: { type: String},
   tags: [{ type: mongoose.Types.ObjectId, ref: "Tag" }],
-  userId: { type: mongoose.Types.ObjectId, ref: "UserSchema", required: true },
-  authorId: { type: mongoose.Types.ObjectId, ref: "UserSchema" },
+  type:String,
+  userId: { type: mongoose.Types.ObjectId, ref: "UserSchema", required: true }
 });
 
 const LinkSchema = new Schema({

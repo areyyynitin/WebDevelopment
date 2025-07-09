@@ -6,10 +6,12 @@ import { ContentModel, LinkModel, UserModel } from "./models/database";
 import { JWT_PASSWORD } from "./config";
 import { UserMiddleware } from "./middleware";
 import { random } from "./util";
+import cors from "cors";
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
+app.use(cors());
 const port = process.env.PORT;
 
 if (!process.env.MONGO_URI) {
@@ -52,17 +54,23 @@ app.post(
   "/api/v1/brain/content",
   UserMiddleware,
   async (req: Request, res: Response) => {
-    const link = req.body.link;
-    const type = req.body.type;
-    await ContentModel.create({
-      link,
-      type,
-      // @ts-ignore
-      userId: req.userId,
-      tags: [],
-    });
+    const { link, type, title } = req.body;
 
-    res.status(200).json({ message: "Content added" });
+    // @ts-ignore
+    const userId = req.userId;
+    try {
+      const content = await ContentModel.create({
+        link,
+        type,
+        title,
+        userId,
+        tags: [],
+      });
+
+      res.status(200).json({ message: content });
+    } catch (err) {
+      res.status(200).json({ message: "Content cannot added" });
+    }
   }
 );
 
@@ -113,9 +121,9 @@ app.post("/api/v1/brain/share", UserMiddleware, async (req, res) => {
       userId: req.userId,
     });
 
-    if(existingLink){
-      res.json({hash:existingLink.hash})
-      return
+    if (existingLink) {
+      res.json({ hash: existingLink.hash });
+      return;
     }
     const hash = random(10);
     await LinkModel.create({
@@ -148,9 +156,9 @@ app.get("/api/v1/brain/:sharelink", async (req: Request, res: Response) => {
   const content = await ContentModel.find({
     userId: link.userId,
   });
- 
+
   const user = await UserModel.findOne({
-    _id: link.userId
+    _id: link.userId,
   });
 
   if (!user) {
