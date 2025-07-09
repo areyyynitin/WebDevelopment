@@ -94,24 +94,42 @@ app.get(
   }
 );
 
+// app.delete(
+//   "/api/v1/brain/content",
+//   UserMiddleware,
+//   async (req: Request, res: Response) => {
+//     try {
+//       const contentId = req.body.contentId;
+//       await ContentModel.deleteMany({
+//         contentId,
+//         // @ts-ignore
+//         userId: req.userId,
+//       });
+
+//       res.status(200).json({message:"Content Deleted"});
+//     } catch (error) {
+//       res.status(404).json({ Error: error });
+//     }
+//   }
+// );
+
+
 app.delete(
-  "/api/v1/brain/content",
+  "/api/v1/brain/content/:contentId",
   UserMiddleware,
   async (req: Request, res: Response) => {
     try {
-      const contentId = req.body.contentId;
-      await ContentModel.deleteMany({
-        contentId,
-        // @ts-ignore
-        userId: req.userId,
-      });
+      const { contentId } = req.params;
+      // @ts-ignore
+      await ContentModel.deleteOne({ _id: contentId, userId: req.userId });
 
-      res.status(200).json("message:Content Deleted");
+      res.status(200).json({ message: "Content Deleted" });
     } catch (error) {
-      res.status(404).json({ Error: error });
+      res.status(404).json({ error });
     }
   }
 );
+
 
 app.post("/api/v1/brain/share", UserMiddleware, async (req, res) => {
   const share = req.body.share;
