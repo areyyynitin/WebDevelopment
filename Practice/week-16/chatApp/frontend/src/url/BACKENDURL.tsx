@@ -1,0 +1,1 @@
+export const BACKENDURL = "ws://localhost:5050/"
