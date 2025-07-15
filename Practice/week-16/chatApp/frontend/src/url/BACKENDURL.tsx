@@ -1,1 +1,1 @@
-export const BACKENDURL = "ws://localhost:5050/"
+export const BACKENDURL = "http://localhost:5050/"
