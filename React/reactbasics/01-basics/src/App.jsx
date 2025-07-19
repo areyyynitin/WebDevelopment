@@ -24,12 +24,16 @@ import {
   Increment,
 } from "./components/Comp1";
 import { Todolist } from "./components/Todolist";
+import { Profile } from "./components/Profile";
+import { ShoppingList } from "./components/ShoppingList";
+import { CopyInput, Switcher } from "./components/CopyInput";
 
 function App() {
-  const [count, setCount] = useState(0);
+ 
   return (
     <>
-    <Todolist/>
+      <CopyInput />
+      <Switcher/>
     </>
   );
 }
