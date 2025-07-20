@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PopupContent } from "./PopupContent";
 
 export const CopyInput = () => {
@@ -42,4 +42,35 @@ const [sw,setSw] = useState(false)
         <button onClick={() => setSw((s) => !s)}>Switch</button>
         </>
     )
+}
+
+
+export const UseEffect = () =>{
+  const [data,setData] = useState([])
+
+  useEffect( () => {
+    async function getData(){
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts")
+      const rawData = await response.json();
+    
+      if(rawData && rawData.length) setData(rawData)
+    }
+  getData()
+  } ,[] )
+
+
+  return <>
+  <div>
+   <ul>
+    {data.map( (item) => (
+      <section  key={item.id}>
+        <li>Title : {item.title}</li>
+        <li >Body : {item.body}</li>
+
+
+      </section>
+    ) )}
+   </ul>
+  </div>
+  </>
 }

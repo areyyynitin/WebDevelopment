@@ -26,14 +26,16 @@ import {
 import { Todolist } from "./components/Todolist";
 import { Profile } from "./components/Profile";
 import { ShoppingList } from "./components/ShoppingList";
-import { CopyInput, Switcher } from "./components/CopyInput";
+import { CopyInput, Switcher, UseEffect } from "./components/CopyInput";
+import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/BasicEffect";
 
 function App() {
  
   return (
     <>
-      <CopyInput />
-      <Switcher/>
+      <BasicEffect/>
+      <CounterEffect/>
+      <FetchDataEffect/>
     </>
   );
 }
