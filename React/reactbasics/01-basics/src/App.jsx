@@ -28,14 +28,20 @@ import { Profile } from "./components/Profile";
 import { ShoppingList } from "./components/ShoppingList";
 import { CopyInput, Switcher, UseEffect } from "./components/CopyInput";
 import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/BasicEffect";
+import { CreateContext } from "./components/CreateContent";
+import { UserProvider } from "./components/UserContext";
+import { UserProfile } from "./components/UserProfile";
+import { UpdateUser } from "./components/UpdateUser";
+import { Reducer } from "./Practice/Reducer";
+import { Counter } from "./components/Counter";
 
 function App() {
  
   return (
     <>
-      <BasicEffect/>
-      <CounterEffect/>
-      <FetchDataEffect/>
+   <Reducer/>
+
+   <Counter/>
     </>
   );
 }
