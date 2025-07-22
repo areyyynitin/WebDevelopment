@@ -15,14 +15,24 @@ const pgClient = new Client({
 
 app.post("/signup", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const insertQuery = `insert into users(username,email,password) values($1,$2,$3);`
+    const { username, email, password, city, country, street, pincode } =
+      req.body;
+    const insertQuery = `insert into users(username,email,password) values($1,$2,$3);`;
 
-    const response = await pgClient.query(insertQuery , [username,email,password]);
+    const userResponse = await pgClient.query(insertQuery, [
+      username,
+      email,
+      password,
+    ]);
+    console.log(userResponse);
+
+    const addressInsertQuery = `insert into addresses(city , country,street , pincode,user_id) values($1,$2,$3,$4,$5)`;
+    await pgClient.query(addressInsertQuery, [city, country, street, pincode]);
+    console.log(addressInsertQuery);
 
     res.json({ message: `${username}, ${email}..you have signup up` });
   } catch (error) {
-    res.json({message:"error while signing up" , error})
+    res.json({ message: "error while signing up", error });
   }
 });
 
