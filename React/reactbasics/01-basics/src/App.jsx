@@ -1,49 +1,25 @@
 import { useState } from "react";
-import { Footer } from "./components/Footer";
-import { Greet } from "./components/Greet";
-import { Greeting } from "./components/Greeting";
-import { Header } from "./components/Header";
-import { IconComponent } from "./components/IconComponent";
-import { MainContent } from "./components/MainContent";
-import { Person } from "./components/Person";
-import { Product } from "./components/Product";
-import { ProductInfo } from "./components/ProductInfo";
-import { ProductList } from "./components/ProductList";
-import { ProfileCard } from "./components/ProfileCard";
-import { StyleCard } from "./components/StyleCard";
-import { UserList } from "./components/UserList";
-import { UserStatus } from "./components/UserStatus";
-import { Weather } from "./components/Weather";
-import { FaCity } from "react-icons/fa6";
-import { MovieRating } from "./components/MovieRating";
-import {
-  Decrement,
-  FunctionUseState1,
-  FunctionUseState2,
-  FunctionUseState3,
-  Increment,
-} from "./components/Comp1";
-import { Todolist } from "./components/Todolist";
-import { Profile } from "./components/Profile";
-import { ShoppingList } from "./components/ShoppingList";
-import { CopyInput, Switcher, UseEffect } from "./components/CopyInput";
-import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/BasicEffect";
-import { CreateContext } from "./components/CreateContent";
-import { UserProvider } from "./components/UserContext";
-import { UserProfile } from "./components/UserProfile";
-import { UpdateUser } from "./components/UpdateUser";
-import { Reducer } from "./Practice/Reducer";
-import { Counter } from "./components/Counter";
+import { FocusInput } from "./components/FocusInput";
+import { Timer } from "./components/Timer";
+import { useFetch } from "./components/useFetch";
 
 function App() {
  
   return (
     <>
-   <Reducer/>
-
-   <Counter/>
+    <FetchPractice/>
     </>
   );
+}
+
+function FetchPractice(){
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos")
+
+  return <>
+    {data && data.map(item => {
+      return <p key={item.id}> {item.id}. {item.title}</p>
+    })}
+  </>
 }
 
 function Cinema() {
