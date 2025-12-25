@@ -10,7 +10,7 @@ const { fstat } = require('fs');
 //     console.log('Line is cleaned')
 // }
 
-// file read
+// file read 
 
 const b = require('fs').promises;
 // function completePromise(fileName){
